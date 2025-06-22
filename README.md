@@ -1,76 +1,66 @@
 # wizCommerce
 The project for my wiz Commerce project 
 
-# BookMySlot – Fullstack Scheduling App
+# 📘 wizCommerce Project – BookMySlot
 
-A mini-Calendly app built with Node.js, Express, PostgreSQL, and minimal HTML/JS.  
-Users can create events, view them, book slots, and see their bookings.
+A **mini-Calendly style scheduling app** built with **Node.js, Express, PostgreSQL**, and a **minimal HTML/JS frontend**.
+
+Users can:
+- ✅ Create events with available time slots
+- ✅ List public events
+- ✅ Book slots with email/name
+- ✅ Prevent double-booking
+- ✅ View their own bookings
+- ✅ Get time-zone adjusted slots on the browser
 
 ---
 
 ## 💻 Requirements
 
-- Node.js (v16+ recommended)
-- PostgreSQL
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [PostgreSQL](https://www.postgresql.org/) (local or cloud instance)
 
 ---
 
 ## 🔧 Setup Instructions
 
-### 1. Clone the repository
+### 1. 📦 Clone the repository
 
 ```bash
 git clone https://github.com/yourusername/book-my-slot.git
-cd book-my-slot/backend '''
+cd book-my-slot/backend```
 
-### 2. Install dependencies
-
-'''npm install'''
-### 3. Create .env file
+````
+## 2. 📁 Install dependencies
+```bash
+npm install
+````
+## 3. ⚙️ Create .env file in /backend
+```bash
 DATABASE_URL=postgresql://your_user:your_password@localhost:5432/your_db
-Replace your_user, your_password, and your_db accordingly.
 
-### 4. Set up the PostgreSQL database
+````
+Replace your_user, your_password, and your_db accordingly.
+## 4. 🗃️ Set up PostgreSQL database
+```bash
 psql -U your_user -d your_db -f schema.sql
 
-### 5. Run the backend server
+````
+## 5. ▶️ Start the backend server
+```bash
 node app.js
-By default it runs on: http://localhost:3000
+````
+By default, the backend runs at: http://localhost:3000
+## ✨ Features
+✅ Create & store events with time slots
 
-##🌐 Frontend Usage
-Navigate to frontend/ folder and open these HTML files in your browser:
+📋 Public listing of created events
 
-index.html – List events
+🧑‍💻 Book slots with name & email
 
-create-event.html – Create new event
+❌ Prevent overbooking and double booking
 
-event.html?id=123 – Book a slot (replace ID)
+🕓 Timezone-adjusted slot times using toLocaleString()
 
-my-bookings.html – View all your bookings by email
+🔍 View all bookings via email lookup
 
-##✨ Features
-Create events with time slots
-
-Public listing of events
-
-Book time slots
-
-Prevent overbooking or double-booking
-
-View your past bookings
-
-Time zone conversion supported on frontend (via JS)
-
-##📦 Project Structure
-book-my-slot/
-├── backend/
-│   ├── app.js
-│   ├── db.js
-│   ├── schema.sql
-│   ├── routes/
-│   └── controllers/
-├── frontend/
-│   ├── index.html
-│   ├── create-event.html
-│   ├── event.html
-│   └── my-bookings.html
