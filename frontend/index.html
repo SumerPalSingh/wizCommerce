@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>All Events</title></head>
+<body>
+  <h1>📋 Public Events</h1>
+  <ul id="eventList"></ul>
+  <script>
+    fetch("http://localhost:3000/api/events")
+      .then(res => res.json())
+      .then(events => {
+        const ul = document.getElementById("eventList");
+        events.forEach(e => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="event.html?id=${e.id}">${e.title}</a>`;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

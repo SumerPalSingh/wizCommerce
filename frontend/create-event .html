@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Create Event</title></head>
+<body>
+  <h1>✏️ Create Event</h1>
+  <form id="eventForm">
+    <input type="text" id="title" placeholder="Title" required><br><br>
+    <textarea id="description" placeholder="Description"></textarea><br><br>
+    <input type="number" id="max" placeholder="Max bookings per slot" required><br><br>
+    <textarea id="slots" placeholder="Enter slot times (ISO format, one per line)"></textarea><br><br>
+    <button type="submit">Create</button>
+  </form>
+  <div id="message"></div>
+  <script>
+    document.getElementById("eventForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const res = await fetch("http://localhost:3000/api/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: title.value,
+          description: description.value,
+          maxBookingsPerSlot: +max.value,
+          timeSlots: slots.value.trim().split("\\n")
+        })
+      });
+      const msg = await res.json();
+      document.getElementById("message").innerText = msg.message || msg.error;
+    });
+  </script>
+</body>
+</html>

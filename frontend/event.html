@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Event Booking</title></head>
+<body>
+  <h1 id="title">📅 Event</h1>
+  <p id="desc"></p>
+  <form id="bookingForm" style="display:none;">
+    <select id="slotSelect"></select><br><br>
+    <input type="text" id="name" placeholder="Your name" required><br><br>
+    <input type="email" id="email" placeholder="Your email" required><br><br>
+    <button type="submit">Book Slot</button>
+  </form>
+  <div id="status"></div>
+  <script>
+    const id = new URLSearchParams(location.search).get("id");
+    fetch("http://localhost:3000/api/events/" + id)
+      .then(res => res.json())
+      .then(data => {
+        title.innerText = data.title;
+        desc.innerText = data.description;
+        if (data.slots.length === 0) {
+          status.innerText = "No available slots";
+          return;
+        }
+        bookingForm.style.display = "block";
+        data.slots.forEach(s => {
+          if (s.current_bookings < data.max_bookings_per_slot) {
+            const opt = document.createElement("option");
+            opt.value = s.id;
+            opt.innerText = new Date(s.slot_time).toLocaleString();
+            slotSelect.appendChild(opt);
+          }
+        });
+      });
+
+    bookingForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const res = await fetch("http://localhost:3000/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          slotId: +slotSelect.value,
+          userName: name.value,
+          userEmail: email.value
+        })
+      });
+      const msg = await res.json();
+      status.innerText = msg.message || msg.error;
+    });
+  </script>
+</body>
+</html>

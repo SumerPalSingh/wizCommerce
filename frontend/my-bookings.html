@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+    ul {
+      margin-top: 1rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔍 View My Bookings</h2>
+  <form id="lookupForm">
+    <input type="email" id="emailInput" placeholder="Enter your email" required />
+    <button type="submit">Search</button>
+  </form>
+  <div id="results"></div>
+
+  <script>
+    const form = document.getElementById('lookupForm');
+    const resultsDiv = document.getElementById('results');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/bookings/user/${encodeURIComponent(email)}`);
+        const bookings = await res.json();
+
+        if (!Array.isArray(bookings) || bookings.length === 0) {
+          resultsDiv.innerHTML = '<p>No bookings found.</p>';
+          return;
+        }
+
+        const html = `
+          <h3>Results:</h3>
+          <ul>
+            ${bookings.map(b => `
+              <li>
+                <strong>${b.event_title}</strong> – 
+                ${new Date(b.slot_time).toLocaleString()}
+              </li>
+            `).join('')}
+          </ul>
+        `;
+        resultsDiv.innerHTML = html;
+      } catch (err) {
+        console.error(err);
+        resultsDiv.innerHTML = '<p style="color:red;">Error fetching bookings. Please try again later.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
