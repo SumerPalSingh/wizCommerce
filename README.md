@@ -21,32 +21,23 @@ Users can create events, view them, book slots, and see their bookings.
 
 ```bash
 git clone https://github.com/yourusername/book-my-slot.git
-cd book-my-slot/backend
-2. Install dependencies
-bash
-Copy
-Edit
-npm install
-3. Create .env file
-env
-Copy
-Edit
+cd book-my-slot/backend '''
+
+### 2. Install dependencies
+
+'''npm install'''
+### 3. Create .env file
 DATABASE_URL=postgresql://your_user:your_password@localhost:5432/your_db
 Replace your_user, your_password, and your_db accordingly.
 
-4. Set up the PostgreSQL database
-bash
-Copy
-Edit
+### 4. Set up the PostgreSQL database
 psql -U your_user -d your_db -f schema.sql
-5. Run the backend server
-bash
-Copy
-Edit
+
+### 5. Run the backend server
 node app.js
 By default it runs on: http://localhost:3000
 
-🌐 Frontend Usage
+##🌐 Frontend Usage
 Navigate to frontend/ folder and open these HTML files in your browser:
 
 index.html – List events
@@ -57,7 +48,7 @@ event.html?id=123 – Book a slot (replace ID)
 
 my-bookings.html – View all your bookings by email
 
-✨ Features
+##✨ Features
 Create events with time slots
 
 Public listing of events
@@ -70,10 +61,7 @@ View your past bookings
 
 Time zone conversion supported on frontend (via JS)
 
-📦 Project Structure
-pgsql
-Copy
-Edit
+##📦 Project Structure
 book-my-slot/
 ├── backend/
 │   ├── app.js
